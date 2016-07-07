@@ -10,14 +10,7 @@ from django.http import HttpResponse
 from .models import Play
 
 def graph(request):
-    return render(request,'graph/graph.html')
-
-def play_count_by_month(request):
-    data = Play.objects.all() \
-       .extra(select={'month': connections[Play.objects.db].ops.date_trunc_sql('month','date')}) \
-       .values('month') \
-       .annotate(count_items=Count('id'))
-    return JsonResponse(list(data),safe=False)
+    return render(request,'personal/bar-graph.html',{'content':#insertJsonhere)
 
 def importData():
     
