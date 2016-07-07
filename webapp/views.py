@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import MySQLdb
+import json
 from django.db import connections
 from django.db.models import Count
 from django.http import JsonResponse
@@ -10,7 +11,7 @@ from django.http import HttpResponse
 from .models import Play
 
 def graph(request):
-    return render(request,'personal/bar-graph.html',{'content':#insertJsonhere)
+    return render(request,'personal/bar-graph.html',{'content':sample.JSON)
 
 def importData():
     
