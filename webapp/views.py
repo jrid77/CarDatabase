@@ -1,6 +1,4 @@
 #!/usr/bin/python
-
-import MySQLdb
 import json
 from django.db import connections
 from django.db.models import Count
@@ -11,37 +9,24 @@ from django.http import HttpResponse
 from .models import Play
 
 def graph(request):
-    return render(request,'personal/bar-graph.html',{'content':sample.JSON)
-
-def importData():
-    
-
-def getData():
-    db = MySQLdb.connect("localhost", "alexanjs", "D@t@b@ses333", "sampledb")
-
-    cursor = db.cursor()
-
-    sql = "SELECT * FROM person"
-
-    cursor.execute(sql)
-    returnString = ''
-
-    for row in cursor:
-	returnString = "<p>" + returnString + str(row) + "</p>"
-
-    db.close()
-
-    return returnString
+    return render(request,'personal/bar-graph.html',{'content':sample.JSON})
 
 def index(request):
-    string = getData()
-    return HttpResponse("<h2>" + string + "</h2>")
+#    string = getData(request)
+    return HttpResponse("""<h2>HEY</h2>
+                        <a href="cars" class="button">Cars</a>
+                        <form action="127.0.0.1/webapp/cars">
+                        <input type="submit" value="Go to Cars">
+                        </form>
+                        <a href="{% url 'cars' %}">Click to go to Cars</a>
+                        """)
+#    conn = MySQLdb.connect (host ="127.0.0.1",
+#                        user = "alexanjs",
+#                        passwd = "D@t@b@ses333",
+#			db = "sampledb")
 
-def showData():
-    conn = MySQLdb.connect (host ="127.0.0.1",
-                        user = "alexanjs",
-                        passwd = "D@t@b@ses333",
-			db = "sampledb")
+def cars(request):
+    return HttpResponse("""<h2>YOU ARE NOW IN CARS!<h2>""")
  
     
 
