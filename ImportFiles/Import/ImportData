@@ -1,0 +1,4 @@
+INSERT INTO CAR (CarId, Model, Year, VehicleType, ManuId, EngineID) VALUES (cid, m, y, v, mid, eid);
+INSERT INTO ENGINE (EngineID, Cylinders, Displacement, Horsepower) VALUES (cid, eid, c, d, h);
+INSERT INTO TRANSMISSION (Type, Gears, Drivetrain) VALUES(cid, t, g, d);
+INSERT INTO GAS_INFO (CarID, CO, COO, NOX, MPG) VALUES(cid, co, coo, nox, mpg);
