@@ -1,0 +1,41 @@
+#!/usr/bin/python
+
+import MySQLdb
+import csv
+
+db = MySQLdb.connect("localhost", "root", "D@t@b@ses333", "CarDatabase")
+	
+cursor = db.cursor()
+
+sql1 = """DROP TABLE MANUFACTURER;"""
+sql2 = """DROP TABLE ENGINE;"""
+sql3 = """DROP TABLE GAS_INFO;"""
+sql4 = """DROP TABLE TRANSMISSION;"""
+sql5 = """DROP TABLE CAR;""" 
+try:
+	cursor.execute(sql1)
+	print "manu dropped"
+except:
+	print "manu already was dropped"
+try:
+	cursor.execute(sql2)
+	print "engine dropped"
+except:
+	print "engine already was dropped"
+try:
+	cursor.execute(sql3)
+	print "gas dropped"
+except:
+	print "gas already was dropped"
+try:
+	cursor.execute(sql4)
+	print "tran dropped"
+except:
+	print "tran already was dropped"
+try:
+	cursor.execute(sql5)
+	print "car dropped"
+except:
+	print "car already was dropped"
+
+

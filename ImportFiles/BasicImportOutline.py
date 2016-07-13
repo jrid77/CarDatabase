@@ -8,10 +8,14 @@ db = MySQLdb.connect("localhost", "root", "D@t@b@ses333", "CarDatabase")
 cursor = db.cursor()
 
 
-def insertIntoTable(name, marketShare):
+def insertIntoTable(carid, manufacturer, vehicleType, manuid, engineid, cyl, displacement, hp, carbonm, carbond, nitro, miles):
 
-	sql = """INSERT INTO MANUFACTURER (name, marketShare) 
-			 VALUES ({n}, {m});""".format(n=name, m=marketShare) 
+	sql = """INSERT INTO CAR (CarId, Model, Year, VehicleType, ManuId, EngineID) VALUES ({cid}, {m}, {y}, {v}, {mid}, {eid});
+		 INSERT INTO ENGINE (CarID, EngineID, Cylinders, Displacement, Horsepower) VALUES ({cid}, {eid}, {c}, {d}, {h});
+		 INSERT INTO TRANSMISSION (CarID, Type, Gears, Drivetrain) VALUES({cid}, {t}, {g}, {d});
+		 INSERT INTO GAS_INFO (CarID, CO, COO, NOX, MPG) VALUES({cid}, {co}, {coo}, {nox}, {mpg});""".format(cid = carid, m = manufacturer, v = vehicleType, mid = manuid, eid = engineid, c = cyl, d = displacement, h = hp, co = carbonm, coo = carbond, nox = nitro, mpg = miles)
+	insert = ' '.join(sql.split())
+	
 	cursor.execute(sql)
 	db.commit()
 	
@@ -21,7 +25,7 @@ def parseFileForData(inputString, i):
 	p = inputString.split(',')
 
 	try:
-		insertIntoTable(p[0], p[16])
+		insertIntoTable()
 	except:
 		print "Line " + str(i) + " is a repeat."
 
