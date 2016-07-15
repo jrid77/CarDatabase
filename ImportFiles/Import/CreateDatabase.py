@@ -15,6 +15,15 @@ sql = """CREATE TABLE MANUFACTURER
 			PercentShare Decimal(2,2) NULL,
 			Country VARCHAR(60) NULL
 		);
+	CREATE TABLE TOWS
+		(
+			TowID INT NOT NULL PRIMARY KEY,
+			Firm VARCHAR(60) NULL,
+			Address VARCHAR(200) NULL,
+			Phone VARCHAR(60) NULL,
+			Manufacturer VARCHAR(60),
+			Model VARCHAR(60)			
+		);
 	CREATE TABLE CAR
 		(
 			CarID VARCHAR(60) NOT NULL PRIMARY KEY,

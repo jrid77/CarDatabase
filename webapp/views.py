@@ -16,11 +16,8 @@ def graph(request):
 def index(request):
 #    string = getData(request)
     return HttpResponse("""<h2>HEY</h2>
-                        <a href="cars" class="button">Cars</a>
-                        <form action="127.0.0.1/webapp/cars">
-                        <input type="submit" value="Go to Cars">
-                        </form>
-                        <a href="{% url 'cars' %}">Click to go to Cars</a>
+                        <button onclick="location.href='http://127.0.0.1:8000/webapp/cars'">
+				click to go to cars</button>
                         """)
 #    conn = MySQLdb.connect (host ="127.0.0.1",
 #                        user = "alexanjs",
