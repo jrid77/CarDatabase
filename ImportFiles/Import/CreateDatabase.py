@@ -57,6 +57,7 @@ sql = """CREATE TABLE MANUFACTURER
 			COO DECIMAL(10,5) NULL,
 			NOX DECIMAL(10,5) NULL,
 			MPG DECIMAL(10,5) NULL,
+			CHECK (MPG<200),
 			FOREIGN KEY (CarID) REFERENCES CAR(CarID)
 		);"""
 create = ' '.join(sql.split())
