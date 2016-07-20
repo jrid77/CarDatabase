@@ -10,10 +10,9 @@ cursor = db.cursor()
 sql = """CREATE TABLE MANUFACTURER
 		(
 			ManuID VARCHAR(60) NOT NULL PRIMARY KEY,
-			OwnerID VARCHAR(60) NULL,
-			Sales INT NULL,
-			PercentShare Decimal(2,2) NULL,
-			Country VARCHAR(60) NULL
+			TotalSales INT, 
+			RecentMonthSales INT,
+			Growth VARCHAR(60)
 		);
 	CREATE TABLE TOWS
 		(
