@@ -10,7 +10,8 @@ cursor = db.cursor()
 
 def insertIntoTable(array):
 
-	sql = """INSERT INTO MANUFACTURER (ManuID, TotalSales, RecentMonthSales) VALUES ("{id}", {s}, {m})""".format(id = array[0].upper(), s = array[15], m = array[13])
+	sql = """INSERT INTO TOWS (TowID, Firm, Address, Phone, Manufacturer, Model) 
+	VALUES ({id}, "{f}", "{a}", "{p}", "{ma}","{mo}")""".format(id = array[0], f = array[1], a = array[2], p = array[3], ma = array[7].upper(), mo = array[8])
 	
 	cursor.execute(sql)
 	db.commit()
@@ -19,12 +20,16 @@ def insertIntoTable(array):
 
 def parseFileForData(inputString, i):
 	p = inputString.split('|')
-	insertIntoTable(p)
+	if len(p) is 14:
+		print i	
+		insertIntoTable(p)
 
 def readFile():
-	file = open('informationonmanu.csv', 'r')
-	
+	print "importing tows"
+	file = open('tows.csv', 'r')
+	file.readline()	
 	entireFile = file.read()
+
 
 	lines = entireFile.split('\n')
 	i=0

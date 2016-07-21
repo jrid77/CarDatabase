@@ -3,16 +3,28 @@
 import MySQLdb
 import csv
 
+print "creating database"
+
 db = MySQLdb.connect("localhost", "root", "D@t@b@ses333", "CarDatabase")
 	
 cursor = db.cursor()
 
-sql = """CREATE TABLE MANUFACTURER
+sql = """
+	CREATE TABLE MANUFACTURER
 		(
 			ManuID VARCHAR(60) NOT NULL PRIMARY KEY,
 			TotalSales INT, 
 			RecentMonthSales INT,
 			Growth VARCHAR(60)
+		);
+	CREATE TABLE RECALLS
+		(
+			RecallID INT PRIMARY KEY AUTO_INCREMENT,
+			Year INT,
+			ManuID VARCHAR(60), 
+			Model VARCHAR(60),
+			NumberAffected INT,
+			Issue VARCHAR(60)
 		);
 	CREATE TABLE TOWS
 		(
@@ -64,6 +76,6 @@ create = ' '.join(sql.split())
 
 cursor.execute(create)
 
-
+print "create database complete"
 
 

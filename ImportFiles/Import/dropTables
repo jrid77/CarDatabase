@@ -13,6 +13,7 @@ sql3 = """DROP TABLE GAS_INFO;"""
 sql4 = """DROP TABLE TRANSMISSION;"""
 sql5 = """DROP TABLE CAR;""" 
 sql6 = """DROP TABLE TOWS;"""
+sql7 = """DROP TABLE RECALLS;"""
 try:
 	cursor.execute(sql1)
 	print "manu dropped"
@@ -43,4 +44,9 @@ try:
 	print "tows dropped"
 except:
 	print "tows was already dropped"
+try:
+	cursor.execute(sql7)
+	print "recalls dropped"
+except:
+	print "recalls was already dropped"
 

@@ -19,17 +19,18 @@ def insertIntoTable(array):
 
 def parseFileForData(inputString, i):
 	p = inputString.split('|')
-	print p
-	insertIntoTable(p)
+	if len(p) is 90:
+		print i
+		insertIntoTable(p)
 
 def readFile():
+	print "importing manus"
 	file = open('informationonmanu.csv', 'r')
 	
 	entireFile = file.read()
 
 	lines = entireFile.split('\n')
 	i=0
-
 	for line in lines:
 		parseFileForData(line, i)
 		i = i + 1
