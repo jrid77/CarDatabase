@@ -233,7 +233,51 @@ def getRecentSalesVis():
 </html>"""
 	return html
 
+def getCylVsHpVis():
+	db = MySQLdb.connect("localhost", "root", "D@t@b@ses333", "CarDatabase")
+	
+	cursor = db.cursor()
 
+	sql = """SELECT Cylinders,Horsepower FROM ENGINE;"""
+	cursor.execute(sql)
+	tupleOfMPG = cursor.fetchall()
+	listOfMPG = createListOfAVGMPGs(tupleOfMPG)
+	print listOfMPG
+	html = """<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('number', 'Cylinders');
+        data.addColumn('number', 'Horsepower');
+        data.addRows(""" + str(listOfMPG) + """);
+
+        var options = {
+          title: 'Cylinder vs. Horsepower comparison',
+          hAxis: {title: 'Cylinders', minValue: 0, maxValue: 16.0},
+          vAxis: {title: 'Horsepower', minValue: 0, maxValue: 800.0},
+          trendlines: {0:{
+          		type: 'exponential',
+          		visableInLegend: true,
+          }},
+          legend: 'none',
+        };
+
+        var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
+"""
+	return html
 
 def createCarHTMLRow(line):
 	rowText = "<tr>"
@@ -284,9 +328,9 @@ def engine(request):
 
 def emissions(request):
 
-	return HttpResponse("""<h2>emissions</h2>""")
+	#return HttpResponse("""<h2>emissions</h2>""")
 
-	table = getCarTable()
+	table = getCylVsHpVis()
 	return HttpResponse(table)
 
 def tows(request):
