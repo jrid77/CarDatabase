@@ -10,8 +10,8 @@ cursor = db.cursor()
 
 def insertIntoTable(array):
 
-	sql = """INSERT INTO MANUFACTURER (ManuID, TotalSales, RecentMonthSales) VALUES ("{id}", {s}, {m})""".format(id = array[0].upper(), s = array[15], m = array[13])
-	
+	sql = """INSERT INTO MANUFACTURER (ManuID, TotalSales, LeastRecentSales, RecentMonthSales) VALUES ("{id}", {s}, {l}, {m})""".format(id = array[0].upper(),l = array[1], s = array[15], m = array[13])
+	print sql
 	cursor.execute(sql)
 	db.commit()
 	
@@ -19,10 +19,11 @@ def insertIntoTable(array):
 
 def parseFileForData(inputString, i):
 	p = inputString.split('|')
-	if len(p) is 90:
-		print i
+	try:
 		insertIntoTable(p)
-
+		print i
+	except:
+		print 'Error in line data'
 def readFile():
 	print "importing manus"
 	file = open('informationonmanu.csv', 'r')

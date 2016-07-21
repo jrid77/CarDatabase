@@ -13,9 +13,10 @@ sql = """
 	CREATE TABLE MANUFACTURER
 		(
 			ManuID VARCHAR(60) NOT NULL PRIMARY KEY,
-			TotalSales INT, 
+			TotalSales INT,
+			LeastRecentSales INT,
 			RecentMonthSales INT,
-			Growth VARCHAR(60)
+			Growth DECIMAL(5,2)
 		);
 	CREATE TABLE RECALLS
 		(
@@ -45,7 +46,7 @@ sql = """
 		);
 	CREATE TABLE ENGINE
 		(
-			EngineID INT PRIMARY KEY AUTO_INCREMENT,
+			EngineID VARCHAR(60) PRIMARY KEY,
 			CarID VARCHAR(60) NULL,
 			Cylinders INT NULL,
 			Displacement DECIMAL(3,1) NULL,
@@ -54,7 +55,6 @@ sql = """
 		);
 	CREATE TABLE TRANSMISSION
 		(
-			TranID INT PRIMARY KEY AUTO_INCREMENT,
 			CarID VARCHAR(60) NULL,
 			Type VARCHAR(60) NULL,
 			Gears INT NULL,
@@ -63,15 +63,22 @@ sql = """
 		);
 	CREATE TABLE GAS_INFO
 		(
-			GasID INT PRIMARY KEY AUTO_INCREMENT,
 			CarID VARCHAR(60) NOT NULL,
 			CO DECIMAL(10,5) NULL,
 			COO DECIMAL(10,5) NULL,
 			NOX DECIMAL(10,5) NULL,
 			MPG DECIMAL(10,5) NULL,
-			CHECK (MPG<200),
+			TotalEmissions DECIMAL(10,5) NULL,
 			FOREIGN KEY (CarID) REFERENCES CAR(CarID)
-		);"""
+		);
+	CREATE TRIGGER insert_growth BEFORE INSERT ON MANUFACTURER
+	FOR EACH ROW SET NEW.Growth = (NEW.RecentMonthSales - NEW.LeastRecentSales)/(NEW.LeastRecentSales);
+	
+	CREATE TRIGGER total_emmissions BEFORE INSERT ON GAS_INFO
+	FOR EACH ROW SET NEW.TotalEmissions = NEW.CO + NEW.COO + NEW.NOX;	
+
+	CREATE TRIGGER check_mpg BEFORE INSERT ON GAS_INFO
+	FOR EACH ROW SET NEW.MPG = IF(NEW.MPG < 250, NEW.MPG, 0);"""
 create = ' '.join(sql.split())
 
 cursor.execute(create)

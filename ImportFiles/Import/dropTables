@@ -14,6 +14,7 @@ sql4 = """DROP TABLE TRANSMISSION;"""
 sql5 = """DROP TABLE CAR;""" 
 sql6 = """DROP TABLE TOWS;"""
 sql7 = """DROP TABLE RECALLS;"""
+sql8 = """DROP TRIGGER insert_growth;"""
 try:
 	cursor.execute(sql1)
 	print "manu dropped"
@@ -46,6 +47,11 @@ except:
 	print "tows was already dropped"
 try:
 	cursor.execute(sql7)
+	print "recalls dropped"
+except:
+	print "recalls was already dropped"
+try:
+	cursor.execute(sql8)
 	print "recalls dropped"
 except:
 	print "recalls was already dropped"
