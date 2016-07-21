@@ -45,6 +45,17 @@ def createListOfMPGs(tupleOfMPGs):
 		row[1] = float(row[1])
 	print listOfMPGs
 	return listOfMPGs
+
+def createListOfAVGMPGs(tupleOfMPGs):
+	print tupleOfMPGs
+	listOfMPGs = [list(element) for element in tupleOfMPGs]
+	print listOfMPGs
+	for row in listOfMPGs:
+		row[0] = float(row[0])
+		row[1] = float(row[1])
+	print listOfMPGs
+	return listOfMPGs
+
 def createCarHTMLRow(line):
 	rowText = "<tr>"
 	for element in line:
@@ -139,6 +150,91 @@ def getMPGVis():
 </html>"""
 	return html
 
+def getAVGMPGVis():
+	db = MySQLdb.connect("localhost", "root", "D@t@b@ses333", "CarDatabase")
+	
+	cursor = db.cursor()
+
+	sql = """SELECT Horsepower,MPG FROM GAS_INFO g, ENGINE e
+			WHERE g.CarID = e.CarID;"""
+	cursor.execute(sql)
+	tupleOfMPG = cursor.fetchall()
+	listOfMPG = createListOfAVGMPGs(tupleOfMPG)
+	print listOfMPG
+	html = """<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('number', 'CarID');
+        data.addColumn('number', 'MPG');
+        data.addRows(""" + str(listOfMPG) + """);
+
+        var options = {
+          title: 'Horsepower vs. MPG comparison',
+          hAxis: {title: 'Horsepower', minValue: 0, maxValue: 800.0},
+          vAxis: {title: 'MPG', minValue: 0, maxValue: 200.0},
+          legend: 'none'
+        };
+
+        var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
+"""
+	return html
+
+def getRecentSalesVis():
+	db = MySQLdb.connect("localhost", "root", "D@t@b@ses333", "CarDatabase")
+	
+	cursor = db.cursor()
+
+	sql = """SELECT ManuID,RecentMonthSales FROM MANUFACTURER;"""
+	cursor.execute(sql)
+	tupleOfMPG = cursor.fetchall()
+	listOfMPG = createListOfMPGs(tupleOfMPG)
+	print listOfMPG
+
+	html = """<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'CarID');
+        data.addColumn('number', 'MPG');
+        data.addRows(""" + str(listOfMPG) + """);
+
+        var options = {
+          title: 'My Daily Activities'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="piechart" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>"""
+	return html
+
+
+
 def createCarHTMLRow(line):
 	rowText = "<tr>"
 	for element in line:
@@ -177,13 +273,13 @@ def manufacturer(request):
 	return HttpResponse(table)
 
 def transmission(request):
-	return HttpResponse("""<h2>Transmission</h2>""")
-	table = getCarTable()
+	#return HttpResponse("""<h2>Transmission</h2>""")
+	table = getAVGMPGVis()
 	return HttpResponse(table)
 
 def engine(request):
-	return HttpResponse("""<h>engine</h2>""")
-	table = getCarTable()
+	#return HttpResponse("""<h>engine</h2>""")
+	table = getRecentSalesVis()
 	return HttpResponse(table)
 
 def emissions(request):
