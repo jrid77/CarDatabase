@@ -19,6 +19,7 @@ def graph(request):
 def index(request):
 #    string = getData(request)
     return HttpResponse("""<h2>Index</h2>
+    				<div align=center>
                         <button onclick="location.href='http://127.0.0.1:8000/webapp/cars'">
 							Cars</button>
 						<button onclick="location.href='http://127.0.0.1:8000/webapp/manufacturer'">
@@ -31,6 +32,7 @@ def index(request):
 							Emissions</button>
 						<button onclick="location.href='http://127.0.0.1:8000/webapp/tows'">
 							Tows</button>
+					</div>
                         """)
 #    conn = MySQLdb.connect (host ="127.0.0.1",
 #                        user = "alexanjs",
@@ -107,7 +109,7 @@ def getMPGVis():
 	tupleOfMPG = cursor.fetchall()
 	listOfMPG = createListOfMPGs(tupleOfMPG)
 	
-	html = """<h2>Manufacturer</h2>
+	html = """
 		<html>
   <head>
     <!--Load the AJAX API-->
@@ -145,7 +147,7 @@ def getMPGVis():
 
   <body>
     <!--Div that will hold the pie chart-->
-    <div id="chart_div"></div>
+    <div id="chart_div" align=center></div>
   </body>
 </html>"""
 	return html
@@ -187,7 +189,7 @@ def getAVGMPGVis():
     </script>
   </head>
   <body>
-    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+    <div id="chart_div" style="width: 900px; height: 500px; margin:0 auto;"></div>
   </body>
 </html>
 """
@@ -228,7 +230,7 @@ def getRecentSalesVis():
     </script>
   </head>
   <body>
-    <div id="piechart" style="width: 900px; height: 500px;"></div>
+    <div id="piechart" style="width: 900px; height: 500px; margin:0 auto;"></div>
   </body>
 </html>"""
 	return html
@@ -273,7 +275,7 @@ def getCylVsHpVis():
     </script>
   </head>
   <body>
-    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+    <div id="chart_div" style="width: 900px; height: 500px; margin:0 auto;"></div>
   </body>
 </html>
 """
@@ -305,36 +307,186 @@ def getCarTable():
 
 
 def cars(request):
-	return HttpResponse("""<h2>Cars</h2>""")
+	
 		
-	#table = getCarTable()
-	#return HttpResponse(table)
+	table = getCarTable()
+	html = """
+			<head>
+			<style>
+			body {background-color:LightSteelBlue;}
+			</style>
+			</head>
+			<body>
+				<h2 align=center>manufacturer</h2>
+					<div align=center>
+                        <button onclick="location.href='http://127.0.0.1:8000/webapp/cars'">
+							Cars</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/manufacturer'">
+							Manufacturer</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/transmission'">
+							Transmission</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/engine'">
+							Engine</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/emissions'">
+							Emissions</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/tows'">
+							Tows</button>
+					</div>
+				<hr style="width:50%"/>
+			</body>"""
+	html = html+table
+	return HttpResponse(html)
 
 def manufacturer(request):
 	
 	#return HttpResponse("""<h2>Manufacturer</h2>""")
 	table = getMPGVis()
-	return HttpResponse(table)
+	html = """
+			<head>
+			<style>
+			body {background-color:LightSteelBlue;}
+			</style>
+			</head>
+			<body>
+				<h2 align=center>manufacturer</h2>
+					<div align=center>
+                        <button onclick="location.href='http://127.0.0.1:8000/webapp/cars'">
+							Cars</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/manufacturer'">
+							Manufacturer</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/transmission'">
+							Transmission</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/engine'">
+							Engine</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/emissions'">
+							Emissions</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/tows'">
+							Tows</button>
+					</div>
+				<hr style="width:50%"/>
+			</body>"""
+	html = html+table
+	return HttpResponse(html)
 
 def transmission(request):
 	#return HttpResponse("""<h2>Transmission</h2>""")
 	table = getAVGMPGVis()
-	return HttpResponse(table)
+	html = """
+			<head>
+			<style>
+			body {background-color:LightSteelBlue;}
+			</style>
+			</head>
+			<body>
+				<h2 align=center>manufacturer</h2>
+					<div align=center>
+                        <button onclick="location.href='http://127.0.0.1:8000/webapp/cars'">
+							Cars</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/manufacturer'">
+							Manufacturer</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/transmission'">
+							Transmission</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/engine'">
+							Engine</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/emissions'">
+							Emissions</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/tows'">
+							Tows</button>
+					</div>
+				<hr style="width:50%"/>
+			</body>"""
+	html = html+table
+	return HttpResponse(html)
 
 def engine(request):
 	#return HttpResponse("""<h>engine</h2>""")
 	table = getRecentSalesVis()
-	return HttpResponse(table)
+	html = """
+			<head>
+			<style>
+			body {background-color:LightSteelBlue;}
+			</style>
+			</head>
+			<body>
+				<h2 align=center>manufacturer</h2>
+					<div align=center>
+                        <button onclick="location.href='http://127.0.0.1:8000/webapp/cars'">
+							Cars</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/manufacturer'">
+							Manufacturer</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/transmission'">
+							Transmission</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/engine'">
+							Engine</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/emissions'">
+							Emissions</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/tows'">
+							Tows</button>
+					</div>
+				<hr style="width:50%"/>
+			</body>"""
+	html = html+table
+	return HttpResponse(html)
 
 def emissions(request):
 
 	#return HttpResponse("""<h2>emissions</h2>""")
 
 	table = getCylVsHpVis()
-	return HttpResponse(table)
+	html = """
+			<head>
+			<style>
+			body {background-color:LightSteelBlue;}
+			</style>
+			</head>
+			<body>
+				<h2 align=center>manufacturer</h2>
+					<div align=center>
+                        <button onclick="location.href='http://127.0.0.1:8000/webapp/cars'">
+							Cars</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/manufacturer'">
+							Manufacturer</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/transmission'">
+							Transmission</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/engine'">
+							Engine</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/emissions'">
+							Emissions</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/tows'">
+							Tows</button>
+					</div>
+				<hr style="width:50%"/>
+			</body>"""
+	html = html+table
+	return HttpResponse(html)
 
 def tows(request):
-	return HttpResponse("""<h2>tows</h2>""")
+	#return HttpResponse("""<h2>tows</h2>""")
 
 	table = getCarTable()
-	return HttpResponse(table)
+	html = """
+			<head>
+			<style>
+			body {background-color:LightSteelBlue;}
+			</style>
+			</head>
+			<body>
+				<h2 align=center>manufacturer</h2>
+					<div align=center>
+                        <button onclick="location.href='http://127.0.0.1:8000/webapp/cars'">
+							Cars</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/manufacturer'">
+							Manufacturer</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/transmission'">
+							Transmission</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/engine'">
+							Engine</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/emissions'">
+							Emissions</button>
+						<button onclick="location.href='http://127.0.0.1:8000/webapp/tows'">
+							Tows</button>
+					</div>
+				<hr style="width:50%"/>
+			</body>"""
+	html = html+table
+	return HttpResponse(html)
