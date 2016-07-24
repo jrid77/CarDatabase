@@ -104,7 +104,7 @@ def getMPGVis():
 	
 	cursor = db.cursor()
 
-	sql = """SELECT CarID,MPG FROM GAS_INFO ORDER BY MPG DESC LIMIT 10;"""
+	sql = """SELECT c.Model,g.MPG FROM GAS_INFO g,CAR c WHERE g.CarID = c.CarID ORDER BY MPG DESC LIMIT 10;"""
 	cursor.execute(sql)
 	tupleOfMPG = cursor.fetchall()
 	listOfMPG = createListOfMPGs(tupleOfMPG)
@@ -129,7 +129,7 @@ def getMPGVis():
 
         // Create the data table.
         var data = new google.visualization.DataTable();
-        data.addColumn('string', 'CarID');
+        data.addColumn('string', 'Model');
         data.addColumn('number', 'MPG');
         data.addRows(""" + str(listOfMPG) + """);
 
@@ -261,10 +261,7 @@ def getCylVsHpVis():
           title: 'Cylinder vs. Horsepower comparison',
           hAxis: {title: 'Cylinders', minValue: 0, maxValue: 16.0},
           vAxis: {title: 'Horsepower', minValue: 0, maxValue: 800.0},
-          trendlines: {0:{
-          		type: 'exponential',
-          		visableInLegend: true,
-          }},
+          trendlines: {0: {} },
           legend: 'none',
         };
 

@@ -32,7 +32,7 @@ def parseFileForData(inputString, i):
 	p = inputString.split(',')
 	print i
 	try:
-		insertIntoTable(p[5],p[4],p[0], p[9], p[3], p[12], p[15], p[7], p[10], p[40], p[41], p[42], p[46], p[14], p[18], p[15])
+		insertIntoTable(p[5],p[4],p[0], p[9], p[3], p[12], p[11], p[7], p[10], p[40], p[41], p[42], p[46], p[14], p[18], p[15])
 	except:
 		print i
 	
