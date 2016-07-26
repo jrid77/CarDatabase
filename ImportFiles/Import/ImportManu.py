@@ -10,7 +10,9 @@ cursor = db.cursor()
 
 def insertIntoTable(array):
 
-	sql = """INSERT INTO MANUFACTURER (ManuID, TotalSales, LeastRecentSales, RecentMonthSales) VALUES ("{id}", {s}, {l}, {m})""".format(id = array[0].upper(),l = array[1], s = array[15], m = array[13])
+	sql = """
+INSERT INTO MANUFACTURER (ManuID, TotalSales, LeastRecentSales, RecentMonthSales) VALUES ("{id}", {s}, {l}, {m});
+""".format(id = array[0].upper(),l = array[1], s = array[15], m = array[13])
 	print sql
 	cursor.execute(sql)
 	db.commit()

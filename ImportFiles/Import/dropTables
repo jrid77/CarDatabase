@@ -7,52 +7,53 @@ db = MySQLdb.connect("localhost", "root", "D@t@b@ses333", "CarDatabase")
 	
 cursor = db.cursor()
 
-sql1 = """DROP TABLE MANUFACTURER;"""
+sql1 = """DROP TABLE CAR;"""
 sql2 = """DROP TABLE ENGINE;"""
-sql3 = """DROP TABLE GAS_INFO;"""
-sql4 = """DROP TABLE TRANSMISSION;"""
-sql5 = """DROP TABLE CAR;""" 
-sql6 = """DROP TABLE TOWS;"""
-sql7 = """DROP TABLE RECALLS;"""
-sql8 = """DROP TRIGGER insert_growth;"""
+sql3 = """DROP TABLE TRANSMISSION;"""
+sql4 = """DROP TABLE GAS_INFO;"""
+sql5 = """DROP TABLE MANUFACTURER;"""
+sql6 = """DROP TABLE RECALLS;"""
+sql7 = """DROP TABLE TOWS;"""
+sql8 = """DROP PROCEDURE remove_data;"""
+
 try:
 	cursor.execute(sql1)
-	print "manu dropped"
+	print "Dropping CAR"
 except:
-	print "manu already was dropped"
+	print "Already dropped CAR"
 try:
 	cursor.execute(sql2)
-	print "engine dropped"
+	print "Dropping ENGINE"
 except:
-	print "engine already was dropped"
+	print "Already dropped ENGINE"
 try:
 	cursor.execute(sql3)
-	print "gas dropped"
+	print "Dropping TRANSMISSION"
 except:
-	print "gas already was dropped"
+	print "Already dropped TRANSMISSION"
 try:
 	cursor.execute(sql4)
-	print "tran dropped"
+	print "Dropping GAS_INFO"
 except:
-	print "tran already was dropped"
+	print "Already dropped GAS_INFO"
 try:
 	cursor.execute(sql5)
-	print "car dropped"
+	print "Dropping MANUFACTURER"
 except:
-	print "car already was dropped"
+	print "Already dropped MANUFACTURER"
 try:
 	cursor.execute(sql6)
-	print "tows dropped"
+	print "Dropping RECALLS"
 except:
-	print "tows was already dropped"
+	print "Already dropped RECALLS"
 try:
 	cursor.execute(sql7)
-	print "recalls dropped"
+	print "Dropping TOWS"
 except:
-	print "recalls was already dropped"
+	print "Already dropped TOWS"
 try:
 	cursor.execute(sql8)
-	print "recalls dropped"
+	print "Dropping Procedure"
 except:
-	print "recalls was already dropped"
+	print "Already dropped Procedure"
 

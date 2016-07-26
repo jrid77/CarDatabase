@@ -13,19 +13,18 @@ sql = """
 	CREATE TABLE MANUFACTURER
 		(
 			ManuID VARCHAR(60) NOT NULL PRIMARY KEY,
-			TotalSales INT,
-			LeastRecentSales INT,
-			RecentMonthSales INT,
-			Growth DECIMAL(5,2)
+			TotalSales INT NULL,
+			LeastRecentSales INT NULL,
+			RecentMonthSales INT NULL,
+			Growth DECIMAL(5,2) NULL
 		);
 	CREATE TABLE RECALLS
 		(
-			RecallID INT PRIMARY KEY AUTO_INCREMENT,
-			Year INT,
-			ManuID VARCHAR(60), 
-			Model VARCHAR(60),
-			NumberAffected INT,
-			Issue VARCHAR(60)
+			Year INT NULL,
+			ManuID VARCHAR(60) NULL, 
+			Model VARCHAR(60) NULL,
+			NumberAffected INT NULL,
+			Issue VARCHAR(60) NULL
 		);
 	CREATE TABLE TOWS
 		(
@@ -33,8 +32,8 @@ sql = """
 			Firm VARCHAR(60) NULL,
 			Address VARCHAR(200) NULL,
 			Phone VARCHAR(60) NULL,
-			Manufacturer VARCHAR(60),
-			Model VARCHAR(60)			
+			Manufacturer VARCHAR(60) NULL,
+			Model VARCHAR(60) NULL		
 		);
 	CREATE TABLE CAR
 		(
@@ -42,7 +41,7 @@ sql = """
 			Model VARCHAR(60) NOT NULL,
 			Year INT NULL,
 			VehicleType VARCHAR(60) NULL,
-			ManuID VARCHAR(60) NULL     
+			ManuID VARCHAR(60) NULL 
 		);
 	CREATE TABLE ENGINE
 		(
@@ -51,7 +50,7 @@ sql = """
 			Cylinders INT NULL,
 			Displacement DECIMAL(3,1) NULL,
 			Horsepower INT NULL,
-			FOREIGN KEY (CarID) REFERENCES CAR(CarID)
+			FOREIGN KEY (CarID) REFERENCES CAR(CarID) ON DELETE CASCADE
 		);
 	CREATE TABLE TRANSMISSION
 		(
@@ -59,7 +58,7 @@ sql = """
 			Type VARCHAR(60) NULL,
 			Gears INT NULL,
 			Drivetrain VARCHAR(60) NULL,
-			FOREIGN KEY (CarID) REFERENCES CAR(CarID) 
+			FOREIGN KEY (CarID) REFERENCES CAR(CarID) ON DELETE CASCADE
 		);
 	CREATE TABLE GAS_INFO
 		(
@@ -69,16 +68,32 @@ sql = """
 			NOX DECIMAL(10,5) NULL,
 			MPG DECIMAL(10,5) NULL,
 			TotalEmissions DECIMAL(10,5) NULL,
-			FOREIGN KEY (CarID) REFERENCES CAR(CarID)
+			FOREIGN KEY (CarID) REFERENCES CAR(CarID) ON DELETE CASCADE
 		);
+
 	CREATE TRIGGER insert_growth BEFORE INSERT ON MANUFACTURER
 	FOR EACH ROW SET NEW.Growth = (NEW.RecentMonthSales - NEW.LeastRecentSales)/(NEW.LeastRecentSales);
 	
 	CREATE TRIGGER total_emmissions BEFORE INSERT ON GAS_INFO
 	FOR EACH ROW SET NEW.TotalEmissions = NEW.CO + NEW.COO + NEW.NOX;	
 
-	CREATE TRIGGER check_mpg BEFORE INSERT ON GAS_INFO
-	FOR EACH ROW SET NEW.MPG = IF(NEW.MPG < 250, NEW.MPG, 0);"""
+	CREATE TRIGGER check_mpg_too_high BEFORE INSERT ON GAS_INFO
+	FOR EACH ROW SET NEW.MPG = IF(NEW.MPG < 950, NEW.MPG, NULL);
+	
+	CREATE TRIGGER check_mpg_zero BEFORE INSERT ON GAS_INFO
+	FOR EACH ROW SET NEW.MPG = IF(NEW.MPG = 0, NEW.MPG, NULL);
+	
+	
+	CREATE PROCEDURE remove_data ()
+	BEGIN
+		DELETE FROM GAS_INFO;
+		DELETE FROM TOWS;
+		DELETE FROM RECALLS;
+		DELETE FROM TRANSMISSION;
+		DELETE FROM CAR;
+		DELETE FROM MANUFACTURER;
+		DELETE FROM ENGINE;	
+	END;"""
 create = ' '.join(sql.split())
 
 cursor.execute(create)

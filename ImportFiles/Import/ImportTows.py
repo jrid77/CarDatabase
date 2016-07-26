@@ -10,9 +10,10 @@ cursor = db.cursor()
 
 def insertIntoTable(array):
 
-	sql = """INSERT INTO TOWS (TowID, Firm, Address, Phone, Manufacturer, Model) 
-	VALUES ({id}, "{f}", "{a}", "{p}", "{ma}","{mo}")""".format(id = array[0], f = array[1], a = array[2], p = array[3], ma = array[7].upper(), mo = array[8])
-	
+	sql = """
+INSERT INTO TOWS (TowID, Firm, Address, Phone, Manufacturer, Model) VALUES ({id}, "{f}", "{a}", "{p}", "{ma}","{mo}");
+""".format(id = array[0], f = array[1], a = array[2], p = array[3], ma = array[7].upper(), mo = array[8])
+	print sql
 	cursor.execute(sql)
 	db.commit()
 	
@@ -20,9 +21,11 @@ def insertIntoTable(array):
 
 def parseFileForData(inputString, i):
 	p = inputString.split('|')
-	if len(p) is 14:
-		print i	
+	try:
 		insertIntoTable(p)
+		print i
+	except:
+		print 'Error in line data'
 
 def readFile():
 	print "importing tows"
@@ -37,5 +40,5 @@ def readFile():
 	for line in lines:
 		parseFileForData(line, i)
 		i = i + 1
-
+		
 readFile()
