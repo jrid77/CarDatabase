@@ -15,10 +15,12 @@ def insertIntoTable(carid, model, year, vehicleType, manuid, engineid, cyl, disp
 	manuid = manuid.upper()
 	drivetrain += '"'
 
-	sql = """INSERT INTO CAR (CarID, Model, Year, VehicleType, ManuId) VALUES ({cid},{m}, {y}, {v}, {mid}) ON DUPLICATE KEY UPDATE Year=Year;
+	sql = """START TRANSACTION;
+		INSERT INTO CAR (CarID, Model, Year, VehicleType, ManuId) VALUES ({cid},{m}, {y}, {v}, {mid}) ON DUPLICATE KEY UPDATE Year=Year;
 		 INSERT INTO ENGINE (EngineID, CarID, Cylinders, Displacement, Horsepower) VALUES ({eid}, {cid}, {c}, {d}, {h}) ON DUPLICATE KEY UPDATE CarID = CarID;
 		 INSERT INTO TRANSMISSION (CarID, Type, Gears, Drivetrain) VALUES({cid}, {t}, {g}, {dt});
-		 INSERT INTO GAS_INFO (CarID, CO, COO, NOX, MPG) VALUES({cid}, {co}, {coo}, {nox}, {mpg});""".format(cid = carid, m = model, y = year, v = vehicleType, mid = manuid, eid = engineid, c = cyl, d = displacement, h = hp, co = float(carbonm), coo = float(carbond), nox = float(nitro), mpg = float(miles), t = transtype, dt = drivetrain, g = gears)
+		 INSERT INTO GAS_INFO (CarID, CO, COO, NOX, MPG) VALUES({cid}, {co}, {coo}, {nox}, {mpg});
+COMMIT;""".format(cid = carid, m = model, y = year, v = vehicleType, mid = manuid, eid = engineid, c = cyl, d = displacement, h = hp, co = float(carbonm), coo = float(carbond), nox = float(nitro), mpg = float(miles), t = transtype, dt = drivetrain, g = gears)
 
 	insert = ' '.join(sql.split())
 	print sql
@@ -34,7 +36,7 @@ def parseFileForData(inputString, i):
 	try:
 		insertIntoTable(p[5],p[4],p[0], p[9], p[3], p[12], p[11], p[7], p[10], p[40], p[41], p[42], p[46], p[14], p[18], p[15])
 	except:
-		print i
+		print "Error in line data."
 	
 
 def readFile():

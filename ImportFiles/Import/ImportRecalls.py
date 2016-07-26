@@ -10,7 +10,10 @@ cursor = db.cursor()
 
 def insertIntoTable(array):
 
-	sql = """INSERT INTO RECALLS (Year, ManuID, Model, NumberAffected, Issue) VALUES ({y}, "{ma}", "{mi}", {n}, "{i}");""".format(y = array[1], ma = array[5].upper(), mi = array[6], n = array[7], i = array[8])
+	sql = """
+INSERT INTO RECALLS (Year, ManuID, Model, NumberAffected, Issue) VALUES ({y}, "{ma}", "{mi}", {n}, "{i}");
+""".format(y = array[1], ma = array[5].upper(), mi = array[6], n = array[7], i = array[8])
+	print sql
 	cursor.execute(sql)
 	db.commit()
 	
@@ -21,6 +24,8 @@ def parseFileForData(inputString, i):
 	if len(p) is 15:
 		print i
 		insertIntoTable(p)
+	else:
+		print "Error in line data."
 
 def readFile():
 	print "import recalls"
