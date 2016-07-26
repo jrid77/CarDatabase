@@ -3,12 +3,13 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^cars', views.cars,name='cars'),
-    url(r'^manufacturer', views.manufacturer,name='manufacturer'),
+    url(r'^recalls', views.recalls,name='recalls'),
+    url(r'^mpg', views.gasMileage,name='mpg'),
+    url(r'^gasToHP', views.gasToHP,name='gasToHP'),
+    url(r'^sales', views.sales,name='sales'),
+    url(r'^cylVsHP', views.cylVsHP,name='cylVsHP'),
     url(r'^transmission', views.transmission,name='transmission'),
-    url(r'^engine', views.engine,name='engine'),
-    url(r'^emissions', views.emissions,name='emissions'),
-    url(r'^tows', views.tows,name='tows'),
+    url(r'^MostTowed', views.mostTowed,name='mostTowed'),
 ]
 
 
