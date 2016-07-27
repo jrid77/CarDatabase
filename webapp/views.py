@@ -129,29 +129,24 @@ def getMPGVis():
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
 
-      // Load the Visualization API and the corechart package.
+      
       google.charts.load('current', {'packages':['corechart']});
 
-      // Set a callback to run when the Google Visualization API is loaded.
       google.charts.setOnLoadCallback(drawChart);
 
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
       function drawChart() {
 
-        // Create the data table.
+     
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Model');
         data.addColumn('number', 'MPG');
         data.addRows(""" + str(listOfMPG) + """);
 
-        // Set chart options
+
         var options = {'title':'Top Ten Gas Mileage Cars',
                        'width':900,
                        'height':600};
 
-        // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
         chart.draw(data, options);
       }
@@ -182,29 +177,23 @@ def getMostRecallsVis():
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
 
-      // Load the Visualization API and the corechart package.
+
       google.charts.load('current', {'packages':['corechart']});
 
-      // Set a callback to run when the Google Visualization API is loaded.
       google.charts.setOnLoadCallback(drawChart);
 
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
       function drawChart() {
 
-        // Create the data table.
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Manufacturer');
         data.addColumn('number', 'Number Of Recalls');
         data.addRows(""" + str(listOfMPG) + """);
 
-        // Set chart options
+      
         var options = {'title':'Top Ten Manufacturers with most recalls',
                        'width':900,
                        'height':600};
 
-        // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
         chart.draw(data, options);
       }
@@ -235,29 +224,19 @@ def getMPGvsDRIVETRAIN():
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
 
-      // Load the Visualization API and the corechart package.
       google.charts.load('current', {'packages':['corechart']});
 
-      // Set a callback to run when the Google Visualization API is loaded.
       google.charts.setOnLoadCallback(drawChart);
 
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
       function drawChart() {
-
-        // Create the data table.
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Drivetrain');
         data.addColumn('number', 'MPG');
         data.addRows(""" + str(listOfMPG) + """);
 
-        // Set chart options
         var options = {'title':'Drivetrain vs MPG',
                        'width':900,
                        'height':600};
-
-        // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
         chart.draw(data, options);
       }
@@ -288,29 +267,18 @@ def getMostTowedModel():
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
 
-      // Load the Visualization API and the corechart package.
       google.charts.load('current', {'packages':['corechart']});
-
-      // Set a callback to run when the Google Visualization API is loaded.
       google.charts.setOnLoadCallback(drawChart);
 
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
       function drawChart() {
-
-        // Create the data table.
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Drivetrain');
-        data.addColumn('number', 'MPG');
+        data.addColumn('number', 'Count');
         data.addRows(""" + str(listOfMPG) + """);
 
-        // Set chart options
         var options = {'title':'Most Towed Cars',
                        'width':900,
                        'height':600};
-
-        // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
         chart.draw(data, options);
       }
